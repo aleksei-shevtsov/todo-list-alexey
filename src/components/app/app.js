@@ -9,9 +9,9 @@ import Context from '../../context';
 
 const App = () => {
   const [todos, setTodos] = React.useState([
-    { id: 1, completed: false, title: 'Хлеб'},
-    { id: 2, completed: true, title: 'Молоко'},
-    { id: 3, completed: false, title: 'Мясо'}
+    { id: 1, completed: false, title: 'Buy bread'},
+    { id: 2, completed: true, title: 'Buy milk'},
+    { id: 3, completed: false, title: 'Clean house'}
   ])
 
   const toggleTodo = (id) => {
