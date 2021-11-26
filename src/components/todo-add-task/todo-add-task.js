@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 import './todo-add-task.css';
 
+const styles = {
+    width_add_btn: {
+        width: '10rem'
+    }
+}
+
 const TodoAddTask = ({onCreate}) => {
     const [value, setValue] = useState('')
 
@@ -26,7 +32,7 @@ const TodoAddTask = ({onCreate}) => {
                     placeholder="Write task" />
 
                 <button type="submit"
-                        className="btn btn-outline-light">Добавить</button>
+                        className="btn btn-outline-light" style={styles.width_add_btn}>Add</button>
             </form>
         </div>
     )
