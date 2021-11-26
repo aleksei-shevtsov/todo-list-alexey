@@ -14,13 +14,10 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true,
-      "unique": true,
-      "default": "Buy bread"
+      "required": true
     },
     "completed": {
       "type": "boolean",
-      "unique": false,
       "required": true
     }
   }

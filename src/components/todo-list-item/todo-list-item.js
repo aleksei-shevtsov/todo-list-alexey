@@ -9,6 +9,9 @@ const TodoListItem = ({todo, index}) => {
     if (todo.completed) {
         classes.push('text-decoration-line-through')
     }
+
+    console.log('todo.title',todo.title);
+    
     return (
         <li className="list-group-item d-flex justify-content-between">
             <input 
@@ -17,7 +20,7 @@ const TodoListItem = ({todo, index}) => {
                 onChange={() => toggleTodo(todo.id)}
             />
             <strong>{index + 1}</strong>
-            <span className={"list-group-item-label " + classes.join(' ')}>{ todo.title }</span>    
+            <span className={"list-group-item-label " + classes.join(' ')}>{todo.title}</span>    
             <input type="text" className="list-group-item-input" defaultValue="DefValue"/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"

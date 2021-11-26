@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './app.css';
 import Header from '../header/header';
 import InputPanel from '../input-panel/input-panel';
@@ -8,11 +8,25 @@ import TodoAddTask from '../todo-add-task/todo-add-task';
 import Context from '../../context';
 
 const App = () => {
-  const [todos, setTodos] = React.useState([
-    { id: 1, completed: false, title: 'Buy bread'},
-    { id: 2, completed: true, title: 'Buy milk'},
-    { id: 3, completed: false, title: 'Clean house'}
-  ])
+
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:1337/todos")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setTodos(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }, [])
 
   const toggleTodo = (id) => {
     setTodos(
@@ -37,6 +51,13 @@ const App = () => {
     }]))
   }
 
+  if (error) {
+    return <div>Ошибка: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>Загрузка...</div>;
+  } else {
+
+  }
   return (
     <Context.Provider value={{removeTodo, toggleTodo}}>
       <div className="app">
