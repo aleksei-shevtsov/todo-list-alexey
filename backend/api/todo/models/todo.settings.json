@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "todos",
+  "info": {
+    "name": "Todo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "Buy bread"
+    },
+    "completed": {
+      "type": "boolean",
+      "unique": false,
+      "required": true
+    }
+  }
+}
