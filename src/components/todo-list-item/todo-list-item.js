@@ -1,10 +1,14 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import './todo-list-item.css';
 import Context from '../../context';
+import Modal from '../modal/modal';
+import ModalContent from '../modal-content/modal-content'
 
 const TodoListItem = ({todo, index}) => {
     const {removeTodo, toggleTodo} = useContext(Context)
+
     const classes = []
+    const [modalActive, setModalActive] = useState('');
 
     if (todo.completed) {
         classes.push('text-decoration-line-through')
@@ -21,12 +25,15 @@ const TodoListItem = ({todo, index}) => {
             <span className={"list-group-item-label " + classes.join(' ')}>{todo.title}</span>    
             <input type="text" className="list-group-item-input" defaultValue="DefValue"/>
             <div className='d-flex justify-content-center align-items-center'>
-                <button type="button"
-                        className="btn-trash btn-sm "
-                        onClick={() => removeTodo(todo.id)}>
-                    <i className="fas fa-trash"></i>
-                </button>
+            <button type="button"
+                className="btn-update btn-sm "
+                onClick={() => setModalActive(true)}>
+            <i class="fas fa-pen"></i>
+            </button>
             </div>
+            <Modal active={modalActive} setActive={setModalActive}>
+                <ModalContent/>
+            </Modal>
         </li>
     )
 }
