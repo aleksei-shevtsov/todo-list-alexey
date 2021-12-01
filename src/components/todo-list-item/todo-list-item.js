@@ -10,8 +10,6 @@ const TodoListItem = ({todo, index}) => {
         classes.push('text-decoration-line-through')
     }
 
-    console.log('todo.title',todo.title);
-    
     return (
         <li className="list-group-item d-flex justify-content-between">
             <input 

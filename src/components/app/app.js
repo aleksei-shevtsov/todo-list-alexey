@@ -43,12 +43,18 @@ const App = () => {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
-  const addTodo = (title) => {
-    setTodos(todos.concat([{
-      title,
-      id: Date.now(),
-      completed: false
-    }]))
+  const addTodo = (titleValueFromInput) => {
+    return fetch('http://localhost:1337/todos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: titleValueFromInput,
+            completed: false
+        })
+    }).then(data => data.json())
+    .then(newTodo=>setTodos([...todos, newTodo]))
   }
 
   if (error) {

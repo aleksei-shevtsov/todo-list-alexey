@@ -8,13 +8,14 @@ const styles = {
 }
 
 const TodoAddTask = ({onCreate}) => {
-    const [value, setValue] = useState('')
+    const [inputValue, setInputValue] = useState('')
 
-    const submitHandler = (event) => {
+    const handleChange = (event) => {
         event.preventDefault()
-        if (value.trim()) {
-            onCreate(value)
-            setValue('')
+        if (inputValue.trim()) {
+            onCreate(inputValue) 
+// сэт значения в переменную value происходит в <input onChange=(setInputValue)>, передаем наверх в пропс onCreate в App component
+            setInputValue('')
         }
     }
 
@@ -23,11 +24,11 @@ const TodoAddTask = ({onCreate}) => {
             <h3>Add your todo</h3>
             <form
                 className="add-task d-flex"
-                onSubmit={submitHandler}>
+                onSubmit={handleChange}>
                 <input 
                     type="text"
-                    value={value}
-                    onChange={event => setValue(event.target.value)}
+                    value={inputValue}
+                    onChange={event => setInputValue(event.target.value)}
                     className="form-control new-post-label"
                     placeholder="Write task" />
 
