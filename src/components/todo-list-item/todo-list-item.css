@@ -31,8 +31,8 @@
     cursor: pointer;
 }
 
-.list-group-item .btn-cookie {
-    color: #e09f3e;
+.list-group-item .btn-sync {
+    color: #82c91e;
 }
 
 .list-group-item .btn-trash {

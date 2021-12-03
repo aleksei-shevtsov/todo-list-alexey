@@ -14,7 +14,6 @@ const TodoAddTask = ({onCreate}) => {
         event.preventDefault()
         if (inputValue.trim()) {
             onCreate(inputValue) 
-// сэт значения в переменную value происходит в <input onChange=(setInputValue)>, передаем наверх в пропс onCreate в App component
             setInputValue('')
         }
     }
@@ -33,7 +32,8 @@ const TodoAddTask = ({onCreate}) => {
                     placeholder="Write task" />
 
                 <button type="submit"
-                        className="btn btn-outline-light" style={styles.width_add_btn}>Add</button>
+                        className="btn btn-outline-light"
+                        style={styles.width_add_btn}>Add</button>
             </form>
         </div>
     )
