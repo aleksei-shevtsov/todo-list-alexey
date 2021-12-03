@@ -20,26 +20,19 @@ const ModalContent = props => {
 
     function updateHandler() {
         props.updateTodo(titleText, isCompleted, props.todo.id)
-        // console.log('isCompleted',isCompleted)
-        // console.log('titleText', titleText)
-        // console.log('modalActive: ', props.modalActive)
     }
 
     function onClickOutSide(e) {
         // Check if user is clicking outside of <input>
         if (inputRef.current && !inputRef.current.contains(e.target)) {
             setInputVisible(false); // Disable text input
-            // updateHandler()
-            //   console.log('InputRef',e.target)
         }
     }
 
     function escOrEnterForInputInvisible(event) {
         if (event.key === "Escape" || event.key === "Enter") {
             setInputVisible(false)
-            // updateHandler()
         }
-        // console.log(`Key: ${event.key}, keycode ${event.keyCode} pressed`);
     }
 
     function syncBtn(todo) {
@@ -75,7 +68,6 @@ const ModalContent = props => {
                         handleChange(e);
                     }}
                 />
-                {/* index below */}
                 <strong>{props.index + 1}</strong>
                 <span className={"list-group-item-label " + classes.join(' ')}>
                     {inputVisible ? (

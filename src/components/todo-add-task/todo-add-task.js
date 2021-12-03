@@ -14,7 +14,6 @@ const TodoAddTask = ({onCreate}) => {
         event.preventDefault()
         if (inputValue.trim()) {
             onCreate(inputValue) 
-// сэт значения в переменную value происходит в <input onChange=(setInputValue)>, передаем наверх в пропс onCreate в App component
             setInputValue('')
         }
     }

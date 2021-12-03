@@ -62,11 +62,6 @@ const App = () => {
   }
 
   const updateTodo = async (titleText, isCompleted, id) => {
-
-    // console.log(`updated this id - ${id}`)
-    // console.log(`updated this title - ${titleText}`)
-    // console.log(`updated this completed - ${isCompleted}`)
-    
     const response = await fetch(`http://localhost:1337/todos/${id}`, {
       method: 'PUT',
       headers: {
@@ -76,9 +71,9 @@ const App = () => {
         title: titleText,
         completed: isCompleted
       })
-  });
-   return(
-    await response.json()
+    });
+    return(
+      await response.json()
       .then(updatedData => {
         todos.map((todo)=>{
           if (todo.id === id) {
@@ -87,15 +82,8 @@ const App = () => {
             todos[index].completed = updatedData.completed
             setTodos(todos)
           }
-        }
-    )
-
-     console.log('updated data: ', updatedData)
-     console.log('newTodo: ', todos)
+        })
     }))
-
-
-    //
   }
 
   if (error) {
