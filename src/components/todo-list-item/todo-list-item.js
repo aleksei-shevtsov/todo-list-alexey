@@ -5,10 +5,11 @@ import Modal from '../modal/modal';
 import ModalContent from '../modal-content/modal-content'
 
 const TodoListItem = ({todo, index}) => {
-    const {removeTodo, toggleTodo} = useContext(Context)
+    const {removeTodo, toggleTodo, updateTodo} = useContext(Context)
+
+    const [modalActive, setModalActive] = useState('');
 
     const classes = []
-    const [modalActive, setModalActive] = useState('');
 
     if (todo.completed) {
         classes.push('text-decoration-line-through')
@@ -32,7 +33,7 @@ const TodoListItem = ({todo, index}) => {
             </button>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
-                <ModalContent/>
+                <ModalContent modalActive={modalActive} todo={todo} index={index} toggleTodo={toggleTodo} updateTodo={updateTodo}/>
             </Modal>
         </li>
     )

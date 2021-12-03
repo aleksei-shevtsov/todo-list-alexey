@@ -33,7 +33,8 @@ const TodoAddTask = ({onCreate}) => {
                     placeholder="Write task" />
 
                 <button type="submit"
-                        className="btn btn-outline-light" style={styles.width_add_btn}>Add</button>
+                        className="btn btn-outline-light"
+                        style={styles.width_add_btn}>Add</button>
             </form>
         </div>
     )
