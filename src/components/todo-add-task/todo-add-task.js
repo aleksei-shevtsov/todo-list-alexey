@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './todo-add-task.css';
+import Filter from '../filter/filter';
 
 const styles = {
     width_add_btn: {
@@ -7,7 +8,7 @@ const styles = {
     }
 }
 
-const TodoAddTask = ({onCreate}) => {
+const TodoAddTask = ({onCreate, filter}) => {
     const [inputValue, setInputValue] = useState('')
 
     const handleChange = (event) => {
@@ -35,6 +36,7 @@ const TodoAddTask = ({onCreate}) => {
                         className="btn btn-outline-light"
                         style={styles.width_add_btn}>Add</button>
             </form>
+            <Filter filter={filter}/>
         </div>
     )
 }
