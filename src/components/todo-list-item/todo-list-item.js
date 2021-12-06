@@ -6,7 +6,7 @@ import ModalContent from '../modal-content/modal-content'
 
 const TodoListItem = ({todo, index}) => {
     const {removeTodo, toggleTodo, updateTodo} = useContext(Context)
-
+// console.log('todo ListItem ',todo)
     const [modalActive, setModalActive] = useState('');
 
     const classes = []

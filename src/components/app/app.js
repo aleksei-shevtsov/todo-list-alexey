@@ -12,6 +12,8 @@ const App = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all');
+  // const visibleData = this.filteredTodos(todos, filter);
 
   useEffect(() => {
     fetch("http://localhost:1337/todos")
@@ -90,14 +92,47 @@ const App = () => {
     return <div>Ошибка: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Загрузка...</div>;
-  } else {
-
   }
+
+  const filteredTodos = (filter) => {
+    if (filter === 'byName') {
+      return setTodos(todos.sort(byNameSequence))
+    } 
+    else if (filter === 'byDate') {
+      return setTodos(todos.sort(byDateSequence))
+    }
+    else {
+      return setTodos(todos.sort(defaultSequence))
+    }
+  }
+  
+  const onFilterSelect = (filter) => {
+    setFilter(filter)
+  }
+
+  const byNameSequence = (a, b) => {
+    if (a.title.toLowerCase() > b.title.toLowerCase()) {
+      return 1; 
+    }
+    if (a.title.toLowerCase() < b.title.toLowerCase()) {
+      return -1; 
+    }
+    return 0;
+  }
+
+  const byDateSequence = (a, b) => {
+    return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+  }
+  
+  const defaultSequence = (a, b) => {
+    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+  }
+
   return (
-    <Context.Provider value={{removeTodo, toggleTodo, updateTodo}}>
+    <Context.Provider value={{removeTodo, toggleTodo, updateTodo, onFilterSelect, filteredTodos}}>
       <div className="app">
         <Header/>
-        <TodoAddTask onCreate={addTodo}/>
+        <TodoAddTask onCreate={addTodo} filter={filter} />
         {todos.length ?
         <TodoList todos={todos} /> :
         <ul class="app-list list-group">
