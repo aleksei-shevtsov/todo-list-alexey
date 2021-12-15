@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import './app.css';
 import Header from '../header/header';
-import InputPanel from '../input-panel/input-panel';
-import Filter from '../filter/filter';
+// import InputPanel from '../input-panel/input-panel';
+// import Filter from '../filter/filter';
 import TodoList from '../todo-list/todo-list';
 import TodoAddTask from '../todo-add-task/todo-add-task';
 import Context from '../../context';
+import LoginPage from '../login-page/login-page';
 
 const App = () => {
 
@@ -13,22 +15,37 @@ const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all');
-  // const visibleData = this.filteredTodos(todos, filter);
+  const [token, setToken] = useState();
+  let isThereCredentials = false;
 
   useEffect(() => {
-    fetch("http://localhost:1337/todos")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setTodos(result);
+      axios.get('http://localhost:1337/todos', {
+        headers: {
+          Authorization:
+            `Bearer ${token}`,
         },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-  }, [])
+      })
+      .then(res => {
+          setTodos(res.data)
+      })
+  }, [token])
+
+  // const getMainTodos = () => {
+  //   let mounted = true;
+  //   axios.get('http://localhost:1337/todos', {
+  //     headers: {
+  //       Authorization:
+  //         `Bearer ${token}`,
+  //     },
+  //   })
+  //   .then(res => {
+  //     console.log('res1 ', res.data)
+  //     if(mounted) {
+  //       setTodos(res.data)
+  //     }
+  //   })
+  //   return () => mounted = false;
+  // }
 
   const toggleTodo = (id) => {
     setTodos(
@@ -88,11 +105,11 @@ const App = () => {
     }))
   }
 
-  if (error) {
-    return <div>Ошибка: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Загрузка...</div>;
-  }
+  // if (error) {
+  //   return <div>Ошибка: {error.message}</div>;
+  // } else if (!isLoaded) {
+  //   return <div>Загрузка...</div>;
+  // }
 
   const filteredTodos = (filter) => {
     if (filter === 'byName') {
@@ -128,21 +145,64 @@ const App = () => {
     return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
   }
 
+  function handlerToken(token, todos) {
+    setToken(token)
+    setTodos(todos)
+    isThereCredentials = true;
+    console.log('handlerToken', token)
+  }
+
   return (
-    <Context.Provider value={{removeTodo, toggleTodo, updateTodo, onFilterSelect, filteredTodos}}>
-      <div className="app">
-        <Header/>
-        <TodoAddTask onCreate={addTodo} filter={filter} />
-        {todos.length ?
-        <TodoList todos={todos} /> :
-        <ul class="app-list list-group">
-          <li className="list-group-item d-flex justify-content-between" >
-            <span className="list-group-item-label">No todos.</span>
-          </li>
-        </ul>}
-      </div>
-    </Context.Provider>
+    <>
+      {!token ?
+      <>
+        <LoginPage setTokenInApp={handlerToken}/>
+      </> :
+      <Context.Provider value={{removeTodo, toggleTodo, updateTodo, onFilterSelect, filteredTodos}}>
+          <div className="app">
+          <Header/>
+          <TodoAddTask onCreate={addTodo} filter={filter} />
+          {todos.length ?
+          <TodoList todos={todos} /> :
+          <ul class="app-list list-group">
+            <li className="list-group-item d-flex justify-content-between" >
+              <span className="list-group-item-label">No todos.</span>
+            </li>
+          </ul>}
+        </div>
+      </Context.Provider>}
+    </>
+    
   );
+
+  if(!token) {
+    console.log('setToken', token)
+    return (
+      <>
+        <LoginPage setTokenInApp={handlerToken}/>
+      </>
+    )
+  } else {
+    console.log('setToken', token)
+     return (
+      <Context.Provider value={{removeTodo, toggleTodo, updateTodo, onFilterSelect, filteredTodos}}>
+        <div className="app">
+          <Header/>
+          <TodoAddTask onCreate={addTodo} filter={filter} />
+          {todos.length ?
+          <TodoList todos={todos} /> :
+          <ul class="app-list list-group">
+            <li className="list-group-item d-flex justify-content-between" >
+              <span className="list-group-item-label">No todos.</span>
+            </li>
+          </ul>}
+        </div>
+      </Context.Provider>
+    );
+  }
+
+  
+  
 }
 
 export default App;
