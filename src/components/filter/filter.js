@@ -1,17 +1,16 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import Context from '../../context';
 import './filter.css';
 
 const Filter = (props) => {
 
-    const {onFilterSelect, filteredTodos} = useContext(Context)
-
+    const { onFilterSelect, filteredTodos } = useContext(Context)
 
     console.log('props.filter ', props.filter)
     const buttonsData = [
-        {filterName: 'all', label: 'All todos'},
-        {filterName: 'byName', label: 'By name'},
-        {filterName: 'byDate', label: 'By date'},
+        { filterName: 'all', label: 'All todos' },
+        { filterName: 'byName', label: 'By name' },
+        { filterName: 'byDate', label: 'By date' },
     ]
 
     const clickHandler = (filterName) => {
@@ -19,17 +18,17 @@ const Filter = (props) => {
         filteredTodos(filterName)
     }
 
-    const buttons = buttonsData.map(({filterName, label}) => {
+    const buttons = buttonsData.map(({ filterName, label }) => {
         const active = props.filter === filterName;
         const btnClass = active ? 'btn-light' : 'btn-outline-light';
         return (
-                <button
-                    type="button"
-                    className={`btn ${btnClass}`}
-                    key={filterName}
-                    onClick={() => {clickHandler(filterName, props.todos)}}>
-                        {label}
-                </button>
+            <button
+                type="button"
+                className={`btn ${btnClass}`}
+                key={filterName}
+                onClick={() => { clickHandler(filterName, props.todos) }}>
+                {label}
+            </button>
         )
     })
 
@@ -40,7 +39,7 @@ const Filter = (props) => {
                 {buttons}
             </div>
         </>
-       
+
     )
 }
 

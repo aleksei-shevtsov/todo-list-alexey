@@ -1,5 +1,23 @@
 .login-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 1.5rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-items {
+  text-align: center;
+}
+
+.btn-position {
+  margin-top: 2rem;
+}
+
+.under-input-text {
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.login {
+  max-width: 400px
 }

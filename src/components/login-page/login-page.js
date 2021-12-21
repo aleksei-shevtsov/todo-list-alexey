@@ -1,18 +1,16 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import { useNavigate  } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import './login-page.css';
 import Context from '../../context';
-import AppContent from '../app-content/app-content';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
 
 function LoginPage() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const {handlerToken} = useContext(Context)
   let navigate = useNavigate();
   let getToken = '';
-
-  const {handlerToken} = useContext(Context)
 
   async function loginUser(credentials) {
     return fetch('http://localhost:1337/auth/local', {
@@ -46,29 +44,34 @@ function LoginPage() {
   }
 
   return (
-    <>
-      <div className="login-wrapper">
-        <h1>Please Log In</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <p>Username</p>
-            <input type="text" onChange={e => setUserName(e.target.value)} />
-          </label>
-          <label>
-            <p>Password</p>
-            <input type="password" onChange={e => setPassword(e.target.value)} />
-          </label>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-            {/* Вариант оформления кнопок */}
-            {/* <Button variant="outline-danger">Get JWT</Button> */}  
-      </div>
-    </>
+    <div className="login-wrapper">
+      <h1>Please Log In</h1>
+      <form className="login-wrapper form-items" onSubmit={handleSubmit}>
+        <Form.Floating className="mb-3">
+          <Form.Control
+            id="floatingInputCustom"
+            type="text"
+            placeholder="Login"
+            onChange={e => setUserName(e.target.value)}
+          />
+          <label htmlFor="floatingInputCustom">Login</label>
+        </Form.Floating>
+        <Form.Floating>
+          <Form.Control
+            id="floatingPasswordCustom"
+            type="password"
+            placeholder="Password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <label htmlFor="floatingPasswordCustom">Password</label>
+        </Form.Floating>
+        <div className="btn-position">
+          <Button variant="outline-secondary" type="submit">Submit</Button>
+        </div>
+      </form>
+    </div>
   )
 } 
-
 
 export default LoginPage;
 

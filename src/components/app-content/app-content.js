@@ -6,11 +6,13 @@ import TodoList from '../todo-list/todo-list';
 import TodoAddTask from '../todo-add-task/todo-add-task';
 import Context from '../../context';
 import LoginPage from '../login-page/login-page';
+import Loader from '../loader/loader';
 
 const AppContent = () => {
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(true);
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all');
 
@@ -23,11 +25,16 @@ const AppContent = () => {
             `Bearer ${token}`,
         },
       })
-      .then(res => {
-          setTodos(res.data)
-      })
+      .then(
+        (res) => {
+          setIsLoaded(true);
+          setTodos(res.data);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        })
   }, [token])
-
 
   const toggleTodo = (id) => {
     setTodos(
@@ -87,12 +94,6 @@ const AppContent = () => {
     }))
   }
 
-  // if (error) {
-  //   return <div>Ошибка: {error.message}</div>;
-  // } else if (!isLoaded) {
-  //   return <div>Загрузка...</div>;
-  // }
-
   const filteredTodos = (filter) => {
     if (filter === 'byName') {
       return setTodos(todos.sort(byNameSequence))
@@ -127,9 +128,16 @@ const AppContent = () => {
     return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
   }
 
+  if (error) {
+    return <div>Ошибка: {error.message}</div>;
+  } else if (!isLoaded) {
+    return (<div className="app"><Loader/></div>);
+  }
+
   if (!token) {
     return (<LoginPage/>)
   }
+  
   return (
     <>
       <Context.Provider value={{removeTodo, toggleTodo, updateTodo, onFilterSelect, filteredTodos}}>
