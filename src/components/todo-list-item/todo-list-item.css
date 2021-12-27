@@ -68,3 +68,35 @@
     color: #aeaeae;
 }
   
+@media (max-width: 1000px) {
+    .list-group-item span {
+        min-width: 400px;
+    }
+}
+
+@media (max-width: 840px) {
+    .list-group-item span {
+        min-width: 300px;
+    }
+}
+
+@media (max-width: 740px) {
+    .list-group-item span {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 620px) {
+    .list-group-item span {
+        min-width: 90px;
+        font-size: 14px;
+    }
+
+    .list-group-item input{
+        font-size: 14px;
+    }
+
+    .list-group-item strong{
+        font-size: 14px;
+    }
+}
