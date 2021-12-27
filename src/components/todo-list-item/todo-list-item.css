@@ -39,6 +39,10 @@
     color: #e5383b;
 }
 
+.list-group-item .btn-update {
+    color: #fccb47;
+}
+
 .list-group-item .fa-star {
     width: 35px;
     height: 35px;

@@ -6,6 +6,7 @@ const ModalContent = props => {
   const [inputVisible, setInputVisible] = useState(false);
   const [titleText, setTitleText] = useState(props.todo.title);
   const [isCompleted, setIsCompleted] = useState(props.todo.completed);
+  const [isShowNotice, setIsShowNotice] = useState(false);
 
   const classes = []
 
@@ -15,10 +16,6 @@ const ModalContent = props => {
 
   function handleChange(event) {
     setIsCompleted(event.target.checked);
-  }
-
-  function updateHandler() {
-    props.updateTodo(titleText, isCompleted, props.todo.id)
   }
 
   function onClickOutSide(e) {
@@ -34,13 +31,20 @@ const ModalContent = props => {
     }
   }
 
+  function updateHandler() {
+    props.updateTodo(titleText, isCompleted, props.todo.id)
+    console.log('props.todo.id', props.todo.id)
+  }
+
   function syncBtn(todo) {
     console.log(`
       This is id: ${todo.id},
       This is title: ${todo.title},
+      This is titleText: ${titleText},
       Is todo completed: ${todo.completed}
     `)
-    updateHandler()
+    updateHandler();
+    setIsShowNotice(true);
   }
 
   useEffect(() => {
@@ -58,6 +62,8 @@ const ModalContent = props => {
   });
 
   return (
+    <>
+    {isShowNotice && setTimeout(() => {setIsShowNotice(false)}, 2000) ? <Notice/> : null}
     <ul className="list-group">
       <li className="list-group-item d-flex justify-content-between">
         <input
@@ -95,7 +101,18 @@ const ModalContent = props => {
         </div>
       </li>
     </ul>
+    </>
   )
 }
 
 export default ModalContent;
+
+export const Notice = () => {
+
+  return (
+    <div className="notice">
+      Updated
+    </div>
+  )
+
+}

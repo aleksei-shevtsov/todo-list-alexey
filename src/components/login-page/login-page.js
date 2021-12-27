@@ -1,14 +1,16 @@
 import React, {useState, useContext} from 'react';
 import { useNavigate  } from 'react-router-dom';
 import './login-page.css';
-import Context from '../../context';
+// import Context from '../../context';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
+import Spinner from '../loader/Spinner';
 
 function LoginPage() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-  const {handlerToken} = useContext(Context)
+  const [loading, setLoading] = useState(false);
+  // const {handlerToken} = useContext(Context)
   let navigate = useNavigate();
   let getToken = '';
 
@@ -32,21 +34,28 @@ function LoginPage() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     getToken = await loginUser({
       identifier: `${username}`,
       password: `${password}`
-    })
-    console.log('getToken ', getToken)
-    if (getToken) {
-      navigate('/app', {replace: true});
-      handlerToken(getToken)
-    }
+    });
+    console.log('getToken ', getToken);
+    sessionStorage.setItem('token', getToken);
+    navigate('/app', {replace: true});
+    setLoading(false)
   }
 
   return (
     <div className="login-wrapper">
       <h1>Please Log In</h1>
-      <form className="login-wrapper form-items" onSubmit={handleSubmit}>
+      <form className="form-items" onSubmit={handleSubmit}>
+        {loading ? 
+        <div className="spinner-background">
+          <div className="spinner">
+            <Spinner/>
+          </div>
+        </div> : 
+        null}
         <Form.Floating className="mb-3">
           <Form.Control
             id="floatingInputCustom"

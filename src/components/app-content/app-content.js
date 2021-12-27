@@ -12,28 +12,27 @@ const AppContent = () => {
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [isLoaded, setIsLoaded] = useState(true);
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all');
 
-  const {token} = useContext(Context)
+  const token = sessionStorage.getItem('token');
   
   useEffect(() => {
-      axios.get('http://localhost:1337/todos', {
-        headers: {
-          Authorization:
-            `Bearer ${token}`,
-        },
+    axios.get('http://localhost:1337/todos', {
+      headers: {
+        Authorization:
+          `Bearer ${token}`,
+      },
+    })
+    .then(
+      (res) => {
+        setIsLoaded(true);
+        setTodos(res.data);
+      },
+      (error) => {
+        setIsLoaded(true);
+        setError(error);
       })
-      .then(
-        (res) => {
-          setIsLoaded(true);
-          setTodos(res.data);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        })
   }, [token])
 
   const toggleTodo = (id) => {
@@ -69,29 +68,33 @@ const AppContent = () => {
     )
   }
 
+  
+
   const updateTodo = async (titleText, isCompleted, id) => {
-    const response = await fetch(`http://localhost:1337/todos/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title: titleText,
-        completed: isCompleted
-      })
-    });
-    return(
-      await response.json()
-      .then(updatedData => {
-        todos.map((todo)=>{
-          if (todo.id === id) {
-            const index = todos.indexOf(todo)
-            todos[index].title = updatedData.title
-            todos[index].completed = updatedData.completed
-            setTodos(todos)
-          }
-        })
-    }))
+    const URL = 'http://localhost:1337/todos/';
+
+    const config = {
+      headers: {'Authorization': `Bearer ${token}`}
+    };
+
+    const bodyParameters  = {
+      title: titleText,
+      completed: isCompleted
+    };
+    const response = await axios.put(
+      `${URL}${id}`, 
+      bodyParameters,
+      config
+    )
+    
+    todos.map((todo) => {
+      if (todo.id === id) {
+        const index = todos.indexOf(todo)
+        todos[index].title = response.data.title
+        todos[index].completed = response.data.completed
+        setTodos(todos)
+      }
+    })
   }
 
   const filteredTodos = (filter) => {

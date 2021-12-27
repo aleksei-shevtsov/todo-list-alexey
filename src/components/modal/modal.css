@@ -9,11 +9,14 @@
     align-items: center;
     vertical-align: center;
     justify-content: center;
-    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
 }
 
 .modal.active {
-    transform: scale(1);
+    opacity: 1;
+    pointer-events: all;
 }
 
 .modal__content {
@@ -22,4 +25,16 @@
     background-color: #fff;
     width: 70vw;
     height: auto;
+}
+
+.notice {
+    position: absolute;
+    background-color: wheat;
+    left: 46%;
+    bottom: 25%;
+    z-index: 1;
+    width: 144px;
+    height: 27px;
+    border-radius: 6px;
+    text-align: center;
 }
