@@ -1,11 +1,12 @@
 .login-wrapper {
-  margin: 1.5rem 0 0 0;
+  margin: 25vh 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .form-items {
+  margin: 20px 0 0 0;
   text-align: center;
 }
 
@@ -20,4 +21,32 @@
 
 .login {
   max-width: 400px
+}
+
+.spinner {
+  transform: translate(-6vw, 37vh);
+  animation-name: show-spinner;
+  animation-duration: 1.5s;
+}
+
+@keyframes show-spinner {
+  from {opacity: 0;}
+  to {opcaity: 1;}
+}
+
+.spinner-background {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(70, 70, 70, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation-name: show-background;
+  animation-duration: 0.5s;
+}
+
+@keyframes show-background {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

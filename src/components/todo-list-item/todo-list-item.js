@@ -33,7 +33,7 @@ const TodoListItem = ({todo, index}) => {
             </button>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
-                <ModalContent modalActive={modalActive} todo={todo} index={index} toggleTodo={toggleTodo} updateTodo={updateTodo}/>
+                <ModalContent modalActive={modalActive} todo={todo} index={index} toggleTodo={toggleTodo} updateTodo={updateTodo} />
             </Modal>
         </li>
     )
