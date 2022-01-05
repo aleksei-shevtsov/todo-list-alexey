@@ -6,7 +6,6 @@ import ModalContent from '../modal-content/modal-content'
 
 const TodoListItem = ({todo, index}) => {
     const {removeTodo, toggleTodo, updateTodo} = useContext(Context)
-// console.log('todo ListItem ',todo)
     const [modalActive, setModalActive] = useState('');
 
     const classes = []
@@ -24,7 +23,7 @@ const TodoListItem = ({todo, index}) => {
             />
             <strong>{index + 1}</strong>
             <span className={"list-group-item-label " + classes.join(' ')}>{todo.title}</span>    
-            <input type="text" className="list-group-item-input" defaultValue="DefValue"/>
+            {/* <input type="text" className="list-group-item-input" defaultValue="DefValue"/> */}
             <div className='d-flex justify-content-center align-items-center'>
             <button type="button"
                 className="btn-update btn-sm "

@@ -63,7 +63,7 @@ const AppContent = () => {
     }).then(data => data.json())
     .then(newTodo => {
         setTodos([...todos, newTodo])
-        console.log(todos)
+        // console.log(todos)
         }
     )
   }

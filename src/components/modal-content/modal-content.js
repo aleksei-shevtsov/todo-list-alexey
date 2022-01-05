@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import "./modal-content.css";
 
 const ModalContent = props => {
 
@@ -64,7 +65,7 @@ const ModalContent = props => {
   return (
     <>
     {isShowNotice && setTimeout(() => {setIsShowNotice(false)}, 2000) ? <Notice/> : null}
-    <ul className="list-group">
+    <ul id="modal-content" className="list-group">
       <li className="list-group-item d-flex justify-content-between">
         <input
           type="checkbox"
@@ -74,7 +75,7 @@ const ModalContent = props => {
           }}
         />
         <strong>{props.index + 1}</strong>
-        <span className={"list-group-item-label " + classes.join(' ')}>
+        <span id="modal-title" className={"list-group-item-label " + classes.join(' ')}>
           {inputVisible ? (
             <input
               ref={inputRef} // Set the Ref
@@ -87,7 +88,7 @@ const ModalContent = props => {
             <span onClick={() => setInputVisible(true)}>{titleText}</span>
           )}
         </span>
-        <input type="text" className="list-group-item-input" defaultValue="DefValue" />
+        {/* <input type="text" className="list-group-item-input" defaultValue="DefValue" /> */}
         <div className='d-flex justify-content-center align-items-center'>
           <button type="button"
             className="btn-sync btn-sm "

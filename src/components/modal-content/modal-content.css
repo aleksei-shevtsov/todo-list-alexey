@@ -1,0 +1,11 @@
+#modal-title {
+  min-width: 800px;
+}
+
+#modal-content li input {
+  margin-right: 12px;
+}
+
+#modal-content li strong {
+  margin-right: 12px;
+}

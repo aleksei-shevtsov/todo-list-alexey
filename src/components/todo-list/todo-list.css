@@ -5,3 +5,53 @@
     box-shadow: 15px 15px 30px rgba(0,0,0, .15);
     color: #fff;
 }
+
+@media (max-width: 1000px) {
+    .app {
+        max-width: 700px; /*change width of main window*/
+    }
+    .list-group-item span {
+        min-width: 500px;
+    }
+}
+
+@media (max-width: 740px) {
+    .app {
+        max-width: 505px; /*change width of main window*/
+    }
+    .list-group-item span {
+        min-width: 300px;
+    }
+} 
+
+@media (max-width: 540px) {
+    .list-group-item span {
+        min-width: 30vw;
+    }
+}
+/*///////////////////////////////////////////////////////*/
+/*   modal-content (Modal-window with sync button)   */
+
+@media (max-width: 1000px) {
+    #modal-title {
+        min-width: 30vw;
+    }
+}
+
+@media (max-width: 740px) {
+    #modal-title {
+        min-width: 30vw;
+    }
+}
+
+@media (max-width: 540px) {
+    #modal-title {
+        min-width: 30vw;
+    }
+}
+
+/* @media (max-width: 1000px) {
+    #modal-content span {
+        min-width: 20%;
+    }
+} */
