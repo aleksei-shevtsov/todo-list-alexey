@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import Context from "../../context"
 import "./modal-content.css";
 
 const ModalContent = props => {
@@ -8,6 +9,7 @@ const ModalContent = props => {
   const [titleText, setTitleText] = useState(props.todo.title);
   const [isCompleted, setIsCompleted] = useState(props.todo.completed);
   const [isShowNotice, setIsShowNotice] = useState(false);
+  const {removeTodo} = useContext(Context)
 
   const classes = []
 
@@ -96,7 +98,8 @@ const ModalContent = props => {
             <i class="fas fa-sync-alt"></i>
           </button>
           <button type="button"
-            className="btn-trash btn-sm ">
+            className="btn-trash btn-sm "
+            onClick={() => removeTodo(props.todo.id)}>
             <i className="fas fa-trash"></i>
           </button>
         </div>

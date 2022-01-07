@@ -47,27 +47,45 @@ const AppContent = () => {
   }
 
   const  removeTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id))
+    console.log('id ', id)
+    axios.delete(`http://localhost:1337/todos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      console.log('res ', res)
+      setTodos(todos.filter(todo => todo.title !== res.data.title))
+    })
   }
 
   const addTodo = (titleValueFromInput) => {
-    return fetch('http://localhost:1337/todos', {
-        method: 'POST',
+    axios.post('http://localhost:1337/todos', 
+      {
+        title: titleValueFromInput,
+        completed: false,
+      },
+      {
         headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            title: titleValueFromInput,
-            completed: false
-        })
-    }).then(data => data.json())
-    .then(newTodo => {
-        setTodos([...todos, newTodo])
-        // console.log(todos)
+          Authorization: `Bearer ${token}`
         }
-    )
+      })
+      .then(newTodo => {
+        console.log('newTodo', newTodo.data.title)
+        console.log('newTodo', newTodo)
+        try {
+          setTodos([...todos, 
+            {
+              id: newTodo.data.id,
+              title: newTodo.data.title,
+              completed: newTodo.data.completed,
+            }
+          ])
+        } catch (error) {
+          console.log('Catch Error - ', error)
+        }
+      })
   }
-
   
 
   const updateTodo = async (titleText, isCompleted, id) => {
