@@ -88,7 +88,7 @@ const AppContent = () => {
   }
   
 
-  const updateTodo = async (titleText, isCompleted, id) => {
+  const updateTodo = async (titleText, isCompleted, status, id) => {
     const URL = 'http://localhost:1337/todos/';
 
     const config = {
@@ -97,7 +97,8 @@ const AppContent = () => {
 
     const bodyParameters  = {
       title: titleText,
-      completed: isCompleted
+      completed: isCompleted,
+      status: status
     };
     const response = await axios.put(
       `${URL}${id}`, 
@@ -110,6 +111,7 @@ const AppContent = () => {
         const index = todos.indexOf(todo)
         todos[index].title = response.data.title
         todos[index].completed = response.data.completed
+        todos[index].status = response.data.status
         setTodos(todos)
       }
     })

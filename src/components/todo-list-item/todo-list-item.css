@@ -15,6 +15,7 @@
     font-size: 20px;
     text-align: center;
     border: 0;
+    /* pointer-events: none; */
 }
 
 .list-group-item button {
@@ -61,5 +62,13 @@
   
 .list-group-item.increase .btn-star {
     color: #aeaeae;
+}
+
+#status-text {
+    font-size: 11px !important;
+    min-width: 70px;
+    position: absolute;
+    right: 100px;
+    /* pointer-events: none; */
 }
   
