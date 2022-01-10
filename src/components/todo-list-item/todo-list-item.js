@@ -2,14 +2,19 @@ import React, {useContext, useState} from 'react';
 import './todo-list-item.css';
 import Context from '../../context';
 import Modal from '../modal/modal';
-import ModalContent from '../modal-content/modal-content'
+import ModalContent from '../modal-content/modal-content';
+import Badge from 'react-bootstrap/Badge';
 
 const TodoListItem = ({todo, index}) => {
-    const {removeTodo, toggleTodo, updateTodo} = useContext(Context)
-// console.log('todo ListItem ',todo)
+    const {toggleTodo, updateTodo} = useContext(Context)
     const [modalActive, setModalActive] = useState('');
 
     const classes = []
+
+    const toggleHandler = (id) => {
+        toggleTodo(id);
+        updateTodo(todo.title, todo.completed, todo.status, id)
+    }
 
     if (todo.completed) {
         classes.push('text-decoration-line-through')
@@ -20,11 +25,11 @@ const TodoListItem = ({todo, index}) => {
             <input 
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => toggleTodo(todo.id)}
+                onChange={() => toggleHandler(todo.id)}
             />
             <strong>{index + 1}</strong>
             <span className={"list-group-item-label " + classes.join(' ')}>{todo.title}</span>    
-            <input type="text" className="list-group-item-input" defaultValue="DefValue"/>
+            <Badge bg="primary" id="status-text">{todo.status}</Badge>
             <div className='d-flex justify-content-center align-items-center'>
             <button type="button"
                 className="btn-update btn-sm "
@@ -33,7 +38,7 @@ const TodoListItem = ({todo, index}) => {
             </button>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
-                <ModalContent modalActive={modalActive} todo={todo} index={index} toggleTodo={toggleTodo} updateTodo={updateTodo} />
+                <ModalContent todo={todo} index={index} updateTodo={updateTodo} />
             </Modal>
         </li>
     )

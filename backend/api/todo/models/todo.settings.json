@@ -19,6 +19,9 @@
     "completed": {
       "type": "boolean",
       "required": true
+    },
+    "status": {
+      "type": "string"
     }
   }
 }

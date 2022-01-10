@@ -1,18 +1,13 @@
 .list-group-item {
     padding: 8px 20px;
-    border-bottom: 1px solid #3d5a80;
     align-items: center;
-}
-
-.list-group-item:last-child {
-    border-bottom: none;
 }
 
 .list-group-item span {
     line-height: 35px;
     font-size: 20px;
     cursor: pointer;
-    min-width: 550px;
+    min-width: 700px;
 }
 
 .list-group-item input {
@@ -20,6 +15,7 @@
     font-size: 20px;
     text-align: center;
     border: 0;
+    /* pointer-events: none; */
 }
 
 .list-group-item button {
@@ -67,36 +63,12 @@
 .list-group-item.increase .btn-star {
     color: #aeaeae;
 }
+
+#status-text {
+    font-size: 11px !important;
+    min-width: 70px;
+    position: absolute;
+    right: 100px;
+    /* pointer-events: none; */
+}
   
-@media (max-width: 1000px) {
-    .list-group-item span {
-        min-width: 400px;
-    }
-}
-
-@media (max-width: 840px) {
-    .list-group-item span {
-        min-width: 300px;
-    }
-}
-
-@media (max-width: 740px) {
-    .list-group-item span {
-        min-width: 180px;
-    }
-}
-
-@media (max-width: 620px) {
-    .list-group-item span {
-        min-width: 90px;
-        font-size: 14px;
-    }
-
-    .list-group-item input{
-        font-size: 14px;
-    }
-
-    .list-group-item strong{
-        font-size: 14px;
-    }
-}

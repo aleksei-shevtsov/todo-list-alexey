@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext, Fragment } from "react";
+import Context from "../../context"
+import "./modal-content.css";
 
 const ModalContent = props => {
 
@@ -6,9 +8,15 @@ const ModalContent = props => {
   const [inputVisible, setInputVisible] = useState(false);
   const [titleText, setTitleText] = useState(props.todo.title);
   const [isCompleted, setIsCompleted] = useState(props.todo.completed);
+  const [status, setStatus] = useState(props.todo.status);
   const [isShowNotice, setIsShowNotice] = useState(false);
+  const {removeTodo} = useContext(Context)
 
-  const classes = []
+  console.log("render");
+  console.log('status', status);
+
+  const classes = [];
+  const statusOptions = ["To do", "In progress", "Closed"];
 
   if (props.todo.completed) {
     classes.push('text-decoration-line-through')
@@ -32,7 +40,7 @@ const ModalContent = props => {
   }
 
   function updateHandler() {
-    props.updateTodo(titleText, isCompleted, props.todo.id)
+    props.updateTodo(titleText, isCompleted, status, props.todo.id)
     console.log('props.todo.id', props.todo.id)
   }
 
@@ -41,10 +49,18 @@ const ModalContent = props => {
       This is id: ${todo.id},
       This is title: ${todo.title},
       This is titleText: ${titleText},
+      This is status: ${status},
       Is todo completed: ${todo.completed}
     `)
     updateHandler();
     setIsShowNotice(true);
+  }
+
+  function handleRadioChange(e) {
+    // e.preventDefault();
+    console.log('status- ', status)
+    console.log('status e.target.value- ', e.target.value)
+    setStatus(e.target.value)
   }
 
   useEffect(() => {
@@ -53,7 +69,6 @@ const ModalContent = props => {
       document.addEventListener("mousedown", onClickOutSide);
       document.addEventListener("keydown", escOrEnterForInputInvisible)
     }
-
     // This is a necessary step to "dismount" unnecessary events when we destroy the component
     return () => {
       document.removeEventListener("mousedown", onClickOutSide);
@@ -64,7 +79,7 @@ const ModalContent = props => {
   return (
     <>
     {isShowNotice && setTimeout(() => {setIsShowNotice(false)}, 2000) ? <Notice/> : null}
-    <ul className="list-group">
+    <ul id="modal-content" className="list-group">
       <li className="list-group-item d-flex justify-content-between">
         <input
           type="checkbox"
@@ -74,7 +89,7 @@ const ModalContent = props => {
           }}
         />
         <strong>{props.index + 1}</strong>
-        <span className={"list-group-item-label " + classes.join(' ')}>
+        <span id="modal-title" className={"list-group-item-label " + classes.join(' ')}>
           {inputVisible ? (
             <input
               ref={inputRef} // Set the Ref
@@ -87,7 +102,23 @@ const ModalContent = props => {
             <span onClick={() => setInputVisible(true)}>{titleText}</span>
           )}
         </span>
-        <input type="text" className="list-group-item-input" defaultValue="DefValue" />
+        <div className="radio-buttons-wrapper">
+          <form>
+            {statusOptions.map((s, index) => (
+              <span key={index} className="input-circle">
+                <input
+                  type="radio"
+                  name="status"
+                  value={s}
+                  checked={status === s && "on"}
+                  onChange={handleRadioChange}
+                  // onChange={e => setStatus(e.currentTarget.value)}
+                />
+                {s}
+              </span>
+            ))}
+          </form>
+        </div>
         <div className='d-flex justify-content-center align-items-center'>
           <button type="button"
             className="btn-sync btn-sm "
@@ -95,7 +126,8 @@ const ModalContent = props => {
             <i class="fas fa-sync-alt"></i>
           </button>
           <button type="button"
-            className="btn-trash btn-sm ">
+            className="btn-trash btn-sm "
+            onClick={() => removeTodo(props.todo.id)}>
             <i className="fas fa-trash"></i>
           </button>
         </div>
