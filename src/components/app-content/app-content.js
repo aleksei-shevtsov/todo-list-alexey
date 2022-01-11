@@ -70,8 +70,6 @@ const AppContent = () => {
         }
       })
       .then(newTodo => {
-        console.log('newTodo', newTodo.data.title)
-        console.log('newTodo', newTodo)
         try {
           setTodos([...todos, 
             {

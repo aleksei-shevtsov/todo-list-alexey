@@ -3,10 +3,7 @@ import Context from '../../context';
 import './filter.css';
 
 const Filter = (props) => {
-
     const { onFilterSelect, filteredTodos } = useContext(Context)
-
-    console.log('props.filter ', props.filter)
     const buttonsData = [
         { filterName: 'all', label: 'All todos' },
         { filterName: 'byName', label: 'By name' },
