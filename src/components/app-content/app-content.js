@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './app-content.css';
 import Header from '../header/header';
@@ -46,16 +46,15 @@ const AppContent = () => {
     )
   }
 
-  const  removeTodo = (id) => {
-    console.log('id ', id)
+  const removeTodo = (id) => {
     axios.delete(`http://localhost:1337/todos/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
     .then(res => {
-      console.log('res ', res)
-      setTodos(todos.filter(todo => todo.title !== res.data.title))
+      setTodos(todos.filter(todo => {
+        return (todo.id !== res.data.id)}))
     })
   }
 
@@ -86,7 +85,6 @@ const AppContent = () => {
         }
       })
   }
-  
 
   const updateTodo = async (titleText, isCompleted, status, id) => {
     const URL = 'http://localhost:1337/todos/';
