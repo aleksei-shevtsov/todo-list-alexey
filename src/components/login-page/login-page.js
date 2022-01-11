@@ -21,30 +21,11 @@ function LoginPage() {
       .then(response => {
         sessionStorage.setItem('token', response.data.jwt);
         navigate('/app', {replace: true});
-        console.log('Login token', response.data.jwt);
       })
       .catch(error => {
         console.log('An error occurred:', error.response);
       });
   }
-
-  // async function loginUser(credentials) {
-  //   return fetch('http://localhost:1337/auth/local', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json'
-  //     },
-  //     body: JSON.stringify(credentials)
-  //   })
-  //   .then(data => data.json())
-  //   .then(result => {
-  //     return result.jwt
-  //   })
-  //   .catch(error => {
-  //     console.log('An error occurred:', error.response);
-  //   });
-  // }
 
   async function registerUser(credentials) {
     axios
@@ -52,7 +33,6 @@ function LoginPage() {
       .then(response => {
         sessionStorage.setItem('token', response.data.jwt);
         navigate('/app', {replace: true});
-        console.log('registerUser GetToken ', response.data.jwt)
       })
       .catch(error => {
         console.log('An error occurred:', error.response);
@@ -66,7 +46,6 @@ function LoginPage() {
       identifier: `${username}`,
       password: `${password}`
     });
-    // setLoading(false)
   }
 
   const handleRegisterSubmit = async e => {
@@ -77,7 +56,6 @@ function LoginPage() {
       email: `${email}`,
       password: `${password}`
     });
-    // setLoading(false)
   }
 
   const togglePasswordVisiblity = () => {
@@ -182,4 +160,3 @@ function LoginPage() {
 } 
 
 export default LoginPage;
-

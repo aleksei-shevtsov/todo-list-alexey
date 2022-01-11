@@ -19,8 +19,6 @@ const TodoAddTask = ({onCreate, filter}) => {
         }
     }
 
-    
-
     return (
         <div className="app-add-task">
             <h3>Add your todo</h3>

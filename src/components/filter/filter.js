@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Context from '../../context';
 import './filter.css';
 
@@ -39,7 +39,6 @@ const Filter = (props) => {
                 {buttons}
             </div>
         </>
-
     )
 }
 

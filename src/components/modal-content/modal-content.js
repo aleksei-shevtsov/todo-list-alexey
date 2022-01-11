@@ -12,9 +12,6 @@ const ModalContent = props => {
   const [isShowNotice, setIsShowNotice] = useState(false);
   const {removeTodo} = useContext(Context)
 
-  console.log("render");
-  console.log('status', status);
-
   const classes = [];
   const statusOptions = ["To do", "In progress", "Closed"];
 
@@ -41,25 +38,14 @@ const ModalContent = props => {
 
   function updateHandler() {
     props.updateTodo(titleText, isCompleted, status, props.todo.id)
-    console.log('props.todo.id', props.todo.id)
   }
 
   function syncBtn(todo) {
-    console.log(`
-      This is id: ${todo.id},
-      This is title: ${todo.title},
-      This is titleText: ${titleText},
-      This is status: ${status},
-      Is todo completed: ${todo.completed}
-    `)
     updateHandler();
     setIsShowNotice(true);
   }
 
   function handleRadioChange(e) {
-    // e.preventDefault();
-    console.log('status- ', status)
-    console.log('status e.target.value- ', e.target.value)
     setStatus(e.target.value)
   }
 
@@ -112,7 +98,6 @@ const ModalContent = props => {
                   value={s}
                   checked={status === s && "on"}
                   onChange={handleRadioChange}
-                  // onChange={e => setStatus(e.currentTarget.value)}
                 />
                 {s}
               </span>
@@ -140,11 +125,9 @@ const ModalContent = props => {
 export default ModalContent;
 
 export const Notice = () => {
-
   return (
     <div className="notice">
       Updated
     </div>
   )
-
 }
